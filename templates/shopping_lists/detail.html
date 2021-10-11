@@ -1,0 +1,49 @@
+{% extends '../base.html' %}
+
+{% block 'title' %}Detailed view{% endblock 'title' %}
+
+{% block 'content' %}
+<section class="mt-3 mb-5">
+    <div class="container">
+        <div class="row">
+            <div class="mr-3">Shopping list name:</div>
+            <h5>{{ shopping_list.name }}</h5>
+        </div>
+        <div class="row mt-3">
+            <a class="btn btn-info mr-1" href="{% url 'shopping_lists:shopping_list_update' shopping_list.id %}">Update list</a>
+            <a class="btn btn-danger" href="{% url 'shopping_lists:shopping_list_delete' shopping_list.id %}">Delete list</a>
+        </div>
+    </div>
+</section>
+
+<section class="mt-3 mb-5">
+    <div class="container">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Decrease Qty</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Increase Qty</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody> 
+            {% for product in shopping_list.shopping_list_product.all %}
+                 <tr>
+                    <th scope="row"><input type="checkbox" /></th>
+                    <td>{{ product.product_name }}</td>
+                    <td><a class="btn btn-info btn-sm" href="{% url 'shopping_lists:decrease_product_quantity' shopping_list.id product.id %}">-</a></td>
+                    <td>{{ product.quantity }}</td>
+                    <td><a class="btn btn-success btn-sm" href="{% url 'shopping_lists:increase_product_quantity' shopping_list.id product.id %}">+</a></td>
+                    <td><a class="btn btn-danger btn-sm" href="{% url 'shopping_lists:shopping_list_delete_product' shopping_list.id product.id %}">Delete product</a></td>
+                </tr>
+            {% empty %}
+                <h6>No items in this shopping list.</h6>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+{% endblock 'content' %}

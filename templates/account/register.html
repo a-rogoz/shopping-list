@@ -1,0 +1,21 @@
+{% extends '../base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block 'content' %}
+<section>
+    <div class="container">
+        <form class="col-6" action="{% url 'account:register' %}" method="POST">
+            {% csrf_token %}
+            <h3 class="mt-5 mb-4">Create an account</h3>
+
+            {{ form|crispy }}  
+            
+            <button class="btn btn-primary btn-block py-2 mb-4 mt-5 fw500 w-100" type="submit">Register</button>
+            <p class="text-center">
+                <a href="{% url "account:login" %}">Already have an account?</a>
+            </p>
+        </form>
+    </div>
+</section>
+{% endblock 'content' %}

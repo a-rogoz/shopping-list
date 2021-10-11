@@ -1,0 +1,40 @@
+{% extends '../base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block 'title' %}Create a new shopping list{% endblock 'title' %}
+
+{% block 'content' %}
+<section class="mt-3 mb-5">
+    <div class="container">
+        <p>Create a new shopping list:</p>
+    </div>
+</section>
+
+<section class="mt-3 mb-5">
+    <div class="container">
+        <form class="" action="{% url 'shopping_lists:shopping_list_create' %}" method="POST">
+        {% csrf_token %}
+            <div class="row">
+                <div class="col-md-4 form-group">
+                    <label class="form-label">Shopping List Name</label>
+                    <input type="text" class="form-control" placeholder="Shopping List Name" name="name" required>
+                </div>
+            </div>
+
+            <hr />
+
+            {{ ProductFormSet.management_data }}
+
+            <div class="row">
+                <div class="col-md-8 form-group">
+                    {{ ProductFormSet.as_p }}
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" name="button">Create</button>
+        </form>
+    </div>
+</section>
+{% endblock 'content' %}
+
+{% block 'extra_scripts' %}{% endblock 'extra_scripts' %}
